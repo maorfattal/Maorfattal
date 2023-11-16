@@ -1,0 +1,21 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - script: |
+      mkdir azagent
+      cd azagent
+      curl -fkSL -o vstsagent.tar.gz https://vstsagentpackage.azureedge.net/agent/3.220.5/vsts-agent-linux-x64-3.220.5.tar.gz
+      tar -zxvf vstsagent.tar.gz
+      if [ -x "$(command -v systemctl)" ]; then
+        ./config.sh --environment --environmentname "PeerEnvaurments" --acceptteeeula --agent $HOSTNAME --url https://dev.azure.com/peerprojects/ --work _work --projectname 'PEERPROJECTS_ERP' --auth PAT --token qz3s6scgu3f6aaitl7cza5jbzgjix5z7flieohimqsqfkfmonfga --runasservice
+        sudo ./svc.sh install
+        sudo ./svc.sh start
+      else
+        ./config.sh --environment --environmentname "PeerEnvaurments" --acceptteeeula --agent $HOSTNAME --url https://dev.azure.com/peerprojects/ --work _work --projectname 'PEERPROJECTS_ERP' --auth PAT --token qz3s6scgu3f6aaitl7cza5jbzgjix5z7flieohimqsqfkfmonfga
+        ./run.sh
+      fi
+    displayName: 'Execute shell script'
