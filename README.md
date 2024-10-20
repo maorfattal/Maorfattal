@@ -1,3 +1,8 @@
+# Tzeva Adom Auto Refresh
+
+This widget automatically refreshes the page every 5 seconds to redirect to the Tzeva Adom website.
+
+```html
 <html>
 <head>
     <meta name="js-widget-title" content="Tzeva Adom Auto Refresh">
